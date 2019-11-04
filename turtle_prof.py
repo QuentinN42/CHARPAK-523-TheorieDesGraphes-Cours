@@ -34,9 +34,14 @@ def arc(x, y, a, b):
 
 
 def arcp(x, y, a, b, p):
-    t.setheading(0)
-    t.up()
-    t.setpos(a, b + 30)
+    if x - a > 0:
+        t.setheading(180)
+        t.up()
+        t.setpos(a, b)
+    else:
+        t.setheading(0)
+        t.up()
+        t.setpos(a, b + 30)
     t.left(90)
     t.down()
     t.circle(sqrt((x - a) * (x - a) + (y - b) * (y - b)) / 2, 90)
@@ -44,17 +49,20 @@ def arcp(x, y, a, b, p):
     t.circle(sqrt((x - a) * (x - a) + (y - b) * (y - b)) / 2, 90)
 
 
-def graph(m: np.ndarray):
+def graph(m: np.ndarray, base_dist: int = 100):
     r = range(len(m))
     for i in r:
-        sommet(i, i * 100, 0)
+        sommet(i, i * base_dist, 0)
     for i in r:
-        for j in r:
+        for j in set(r) - {i}:
             if m[i, j] != 0:
-                arcp(i * 100, 0, j * 100, 0, m[i, j])
+                arcp(i * base_dist, 0, j * base_dist, 0, m[i, j])
 
 
 if __name__ == "__main__":
-    graph(np.ones((3, 3)))
+    size = 5
+    tab = np.random.random_integers(0, 50, (size, size))
+    print(tab)
+    graph(tab, base_dist=50)
 
     input()
