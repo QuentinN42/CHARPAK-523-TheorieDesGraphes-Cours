@@ -5,11 +5,11 @@ INF = 100
 
 def djk(m: np.ndarray, deb: int):
     n = len(m)
-    r = np.arange(n).astype(int)
-    p = np.zeros(n).astype(bool)
-    d = INF * np.ones(n).astype(int)
+    r = np.arange(n, dtype=int)
+    p = np.zeros(n, dtype=bool)
+    d = INF * np.ones(n, dtype=int)
     d[deb] = 0
-    ch = np.zeros(n).astype(int)
+    ch = np.zeros(n, dtype=int)
     while 0 in p:
         a = np.where(p, INF, d).argmin()
         p[a] = True
