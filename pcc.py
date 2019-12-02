@@ -16,8 +16,16 @@ def djk(m: np.ndarray, deb: int):
         for b in r[p == False]:
             if d[b] > d[a] + m[a, b]:
                 d[b] = d[a] + m[a, b]
-                ch[b] = a + 1
+                ch[b] = a
     return d, ch
+
+
+def af(ch: np.ndarray, m: np.ndarray, i: int, deb: int):
+    o: str = ""
+    while i != deb:
+        o += f"{i} =[{m[i,ch[i]]}]=> "
+        i = ch[i]
+    return o + str(deb)
 
 
 if __name__ == "__main__":
@@ -32,4 +40,7 @@ if __name__ == "__main__":
     ).astype(int)
     line = 2
     mat = np.where(mat == 0, INF, mat)
-    print(djk(mat, line))
+    _d, _ch = djk(mat, line)
+    print(_d)
+    print(_ch)
+    print(af(_ch, mat, 1, line))
