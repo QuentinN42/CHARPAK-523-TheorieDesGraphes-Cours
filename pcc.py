@@ -36,11 +36,11 @@ if __name__ == "__main__":
             [0, 0, 0, 0, 1],
             [3, 2, 0, 0, -4],
             [0, 4, 1, -4, 0]
-        ]
-    ).astype(int)
+        ],
+        dtype=int)
     line = 2
     mat = np.where(mat == 0, INF, mat)
     _d, _ch = djk(mat, line)
     print(_d)
     print(_ch)
-    print(af(_ch, mat, 1, line))
+    print(af(_ch, mat, 0, line))
