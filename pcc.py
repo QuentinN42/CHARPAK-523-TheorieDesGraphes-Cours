@@ -20,12 +20,31 @@ def djk(m: np.ndarray, deb: int):
     return d, ch
 
 
+def chemin(ch, a, b):
+    """
+    retourne le chemin de a vers b
+    :param ch: vecteur ch de djk
+    :param a: start
+    :param b: end
+    :return: liste d'arettes (tuple)
+    """
+    o: list = []
+    while a != b:
+        o.append((a, ch[a]))
+        a = ch[a]
+    return o
+
+
 def af(ch: np.ndarray, m: np.ndarray, i: int, deb: int):
-    o: str = ""
-    while i != deb:
-        o += f"{i} =[{m[i,ch[i]]}]=> "
-        i = ch[i]
-    return o + str(deb)
+    """
+    affichage du chemin entre i et deb avec le poid
+    :param ch: vecteur ch de djk
+    :param m: matrice
+    :param i: start
+    :param deb: stop
+    :return: str
+    """
+    return "".join([f"{c[0]} =[{m[c]}]=> " for c in chemin(ch, i, deb)]) + str(deb)
 
 
 if __name__ == "__main__":
@@ -40,6 +59,7 @@ if __name__ == "__main__":
         dtype=int)
     line = 2
     mat = np.where(mat == 0, INF, mat)
+    mat = abs(mat)
     _d, _ch = djk(mat, line)
     print(_d)
     print(_ch)
